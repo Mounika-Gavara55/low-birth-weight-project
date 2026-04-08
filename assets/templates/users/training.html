@@ -1,0 +1,45 @@
+{% extends 'users/userbase.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <h2 class="display-4 font-weight-bold mb-5" style="background: linear-gradient(135deg, #FF6E7F, #bfe9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Model Comparison Results</h2>
+
+            <div style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); padding: 30px; overflow-x: auto; margin-bottom: 30px;">
+                <table class="table" style="background: transparent;">
+                    <thead>
+                        <tr>
+                            <th style="background: rgba(255, 255, 255, 0.5); border-bottom: 2px solid rgba(255,110,127,0.3); color: #333; padding: 15px;">Algorithm</th>
+                            <th style="background: rgba(255, 255, 255, 0.5); border-bottom: 2px solid rgba(255,110,127,0.3); color: #333; padding: 15px;">Accuracy</th>
+                            <th style="background: rgba(255, 255, 255, 0.5); border-bottom: 2px solid rgba(255,110,127,0.3); color: #333; padding: 15px;">Precision</th>
+                            <th style="background: rgba(255, 255, 255, 0.5); border-bottom: 2px solid rgba(255,110,127,0.3); color: #333; padding: 15px;">Recall</th>
+                            <th style="background: rgba(255, 255, 255, 0.5); border-bottom: 2px solid rgba(255,110,127,0.3); color: #333; padding: 15px;">F1 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for model, values in results.items %}
+                        <tr>
+                            <td style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">{{ model }}</td>
+                            <td style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">{{ values.accuracy }}</td>
+                            <td style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">{{ values.precision }}</td>
+                            <td style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">{{ values.recall }}</td>
+                            <td style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">{{ values.f1 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="mb-4" style="color: #28a745; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Best Model: {{ best_model }}</h2>
+
+            {% if error %}
+            <div style="background: rgba(217, 83, 79, 0.1); color: #d9534f; padding: 15px; border-radius: 10px; font-weight: bold; margin-top: 20px;">
+                <h3>{{ error }}</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

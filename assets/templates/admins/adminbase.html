@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="copyright" content="MACode ID, https://macodeid.com/">
+    <title>Baby Weight Prediction</title>
+    <link rel="stylesheet" href="{% static 'css/maicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/animate/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #fcedf2;
+            background-image: url("{% static 'images/premium_bg.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            padding: 15px;
+            transition: all 0.3s ease-in-out;
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6E7F, #bfe9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #4a4a4a !important;
+            transition: color 0.3s ease, transform 0.2s;
+            margin: 0 10px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #FF6E7F !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6E7F 0%, #bfe9ff 100%);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 110, 127, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #bfe9ff 0%, #FF6E7F 100%);
+            box-shadow: 0 6px 20px rgba(255, 110, 127, 0.6);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Baby Weight Prediction</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport"
+                    aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupport">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item {% block admin_home %} {% endblock %}">
+                            <a class="nav-link" href="{% url 'AdminHome' %}">Home</a>
+                        </li>
+                        <li class="nav-item {% block user_list %} {% endblock %}">
+                            <a class="nav-link" href="{% url 'ViewRegisteredUsers' %}">User Details</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-primary ml-lg-3" href="{% url 'index' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div> <!-- .navbar-collapse -->
+            </div> <!-- .container -->
+        </nav>
+    </header>
+
+    <br>
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static  'vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static  'js/theme.js' %}"></script>
+</body>
+
+</html>

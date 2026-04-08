@@ -1,0 +1,156 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .result-red {
+        color: #d9534f;
+        text-align: center;
+        background: rgba(217, 83, 79, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    .result-green {
+        color: #5cb85c;
+        text-align: center;
+        background: rgba(92, 184, 92, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    .box {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 110, 127, 0.3);
+        padding: 30px;
+        width: 80%;
+        margin: auto;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+    .box:hover {
+        transform: translateY(-5px);
+    }
+    
+    .box input, .box select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid rgba(255, 110, 127, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.5);
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    .box input:focus, .box select:focus {
+        border-color: #FF6E7F;
+        outline: none;
+        box-shadow: 0 0 8px rgba(255,110,127,0.4);
+    }
+</style>
+
+<h2 style="text-align:center;">Baby Weight Prediction</h2>
+
+<form method="post" action="{% url 'prediction' %}">
+    {% csrf_token %}
+
+    <!-- 👩 MOTHER -->
+    <div class="box">
+        <h3 style="text-align:center; color:#e91e63;">Mother Details</h3>
+
+        Age: <input type="number" name="mage" required><br><br>
+
+        Weight Gained: <input type="number" name="gained" required><br><br>
+
+        Doctor Visits: <input type="number" name="visits" required><br><br>
+
+        Total Pregnancies: <input type="number" name="totalp" required><br><br>
+
+        Pregnancy Weeks: <input type="number" name="weeks" required><br><br>
+
+        Previous Infant:
+        <select name="pinfant">
+            <option value="0">Normal</option>
+            <option value="1">Problem</option>
+        </select><br><br>
+    </div>
+
+    <!-- 👨 FATHER -->
+    <div class="box">
+        <h3 style="text-align:center; color:#2196f3;">Father Details</h3>
+
+        Age: <input type="number" name="fage" required><br><br>
+
+        Education:
+        <select name="feduc">
+            <option value="1">SSC</option>
+            <option value="2">Inter</option>
+            <option value="3">Degree</option>
+            <option value="4">PG</option>
+        </select>
+    </div>
+
+    <!-- ❤️ HEALTH -->
+    <div class="box">
+        <h3 style="text-align:center; color:#4caf50;">Health Details</h3>
+
+        Diabetes:
+        <select name="diabetes">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select><br><br>
+
+        Lung Problem:
+        <select name="aclung">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select><br><br>
+
+        Hemoglobin:
+        <input type="number" step="0.1" name="hemoglobin" required>
+    </div>
+
+    <center>
+        <button type="submit" class="btn btn-primary px-5 py-3" style="font-size: 1.2rem; border-radius: 30px; background: linear-gradient(135deg, #FF6E7F 0%, #bfe9ff 100%); border: none; color: white; box-shadow: 0 4px 15px rgba(255, 110, 127, 0.4);">Predict Result</button>
+    </center>
+
+</form>
+
+<br><br>
+
+<!-- ✅ RESULT -->
+{% if output %}
+    <h2 class="{% if color == 'red' %}result-red{% else %}result-green{% endif %}">
+        {{ output }}
+    </h2>
+
+    {% if reasons %}
+    <div style="width:60%; margin:auto;">
+        <h3>Prediction Reasons:</h3>
+        <ul>
+            {% for r in reasons %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if diet %}
+    <div style="width:60%; margin:auto;">
+        <h3>Recommended Diet:</h3>
+        <ul>
+            {% for d in diet %}
+                <li>{{ d }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
